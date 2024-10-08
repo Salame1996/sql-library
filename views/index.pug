@@ -1,0 +1,35 @@
+extends layout.pug
+
+block content
+  header
+    h1 Books
+
+  form(method='get' action='/books')
+    a.button(href='/books/new') Create New Book
+    input(type='search' placeholder='search' name='s' value=search style='margin-left: 150px')
+    input(type='submit')
+
+  p
+  table
+    thead
+      tr
+        th Title
+        th Author
+        th Genre
+        th Year
+    tbody
+      each book in books
+        tr
+          td
+            a(href=`/books/${book.id}`) #{book.title}
+          td= book.author
+          td= book.genre
+          td= book.year
+
+  p
+  if prevPage
+    a.button(href=`/books?p=${prevPage}&s=${search}`) previous
+  | 
+  if nextPage
+    a.button(href=`/books?p=${nextPage}&s=${search}`) next
+  
